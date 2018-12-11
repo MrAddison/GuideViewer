@@ -3,14 +3,10 @@
         xmlns:views="clr-namespace:Guideviewer.Views"
         x:Class="Guideviewer.MainWindow" Title="MainWindow" ResizeMode="NoResize" Width="1280" Height="720">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1041*"/>
-            <ColumnDefinition Width="233*"/>
-        </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="2">
+        <TabControl>
             <TabItem Header="Guide">
                 <Grid>
-                    <DataGrid Name="MyDataGrid" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HeadersVisibility="Column" CanUserSortColumns="False" IsReadOnly="True" Margin="0,25,0,0" MinRowHeight="30" GridLinesVisibility="None">
+                    <DataGrid Name="MyDataGrid" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" HeadersVisibility="Column" IsReadOnly="True" MinRowHeight="30" GridLinesVisibility="None">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Quest / Train To" Binding="{Binding Qt}" Foreground="#FF5191BB" Width="1*">
                                 <DataGridTextColumn.HeaderStyle>
@@ -133,7 +129,7 @@
                                     <TabItem Header="Miniquests">
                                         <Grid>
                                             <ListView Name="MqMqP2P" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                <views:MqcMiniquests x:Name="MqcMiniquestsData" Loaded="MqcMiniquestsData_Loaded"></views:MqcMiniquests>
+                                                <views:MqcMiniquests x:Name="MqcMiniquestsData" Loaded="MqcMiniquestsData_Loaded"/>
                                             </ListView>
                                         </Grid>
                                     </TabItem>

@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Guideviewer
 {
-	class CheckBoxModel
+	class CheckBoxModel 
 	{
 		private string _hyperlink;
 		private string _text;

@@ -2,14 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace Guideviewer
 {
 	class CheckBoxViewModel
 	{
-		public ObservableCollection<CheckBoxModel> AllCheckboxes { get; set; }
+		public static ObservableCollection<CheckBoxModel> CheckBoxes { get; set; }
+		public static List<CheckBox> AllCheckBoxes { get; set; }
 
-        public List<Tuple<string, string>> CheckBoxTupleInfoMqc = new List<Tuple<string, string>>
+		public List<Tuple<string, string>> MqcList = new List<Tuple<string, string>>
         {
             //Miniquests
             new Tuple<string, string>( "Abyssal_Reach", "The Abyss" ),
@@ -310,7 +312,7 @@ namespace Guideviewer
 
         };
 
-        public List<Tuple<string, string>> CheckBoxTupleInfoComp = new List<Tuple<string, string>>
+        public List<Tuple<string, string>> CompList = new List<Tuple<string, string>>
         {
             //Miniquests
             new Tuple<string, string>( "Abyssal_Reach", "The Abyss" ),
@@ -444,7 +446,7 @@ namespace Guideviewer
             new Tuple<string, string>( "Exploration_achievements", "Zarosian Memoriam Crystals" ),
         };
 
-        public List<Tuple<string, string>> CheckBoxTupleInfoTrim = new List<Tuple<string, string>>
+        public List<Tuple<string, string>> TrimList = new List<Tuple<string, string>>
         {
             //Miniquests
             new Tuple<string, string>( "Exploration_achievements", "Barbarian Training" ),
@@ -613,7 +615,7 @@ namespace Guideviewer
             new Tuple<string, string>( "How_Many_Games%3F", "How Many Games?" ),
         };
 
-        public List<Tuple<string, string>> CheckBoxTupleInfoSalty = new List<Tuple<string, string>>
+        public List<Tuple<string, string>> SaltyList = new List<Tuple<string, string>>
         {
             new Tuple<string, string>( "Arc_-_Upgrading_Waiko", "Upgrading Waiko" ),
             new Tuple<string, string>( "Arc_-_Unlocking_Waiko", "Unlocking Waiko" ),
@@ -639,42 +641,32 @@ namespace Guideviewer
             new Tuple<string, string>( "Arc_X_-_Final_Destination", "Final Destination" ),
         };
 
-        public void LoadCheckBoxes()
+		public void LoadCheckBoxes()
 		{
-			string linkPrefix = "https://runescape.wiki/w/";
+			AllCheckBoxes = new List<CheckBox>();
+			CheckBoxes = new ObservableCollection<CheckBoxModel>();
 
-			AllCheckboxes = new ObservableCollection<CheckBoxModel>	
-            {				
-				new CheckBoxModel(CheckBoxType.SelectAll, CheckBoxType.Mqc)
-			};
+			int i = 0;
 
-            //new List<List<Tuple<string, string>>> {CheckBoxTupleInfoMqc, CheckBoxTupleInfoComp, CheckBoxTupleInfoTrim, CheckBoxTupleInfoSalty}.ForEach(x =>
-            //{
-            //    x.ForEach(tuple =>
-            //    {
-                    
-            //    });
-            //});
+			new List<List<Tuple<string, string>>> {	MqcList, CompList, TrimList, SaltyList}.ForEach(list => 
+			{
+				list.ForEach(tuple =>
+				{
+					CheckBoxes.Add(new CheckBoxModel("https://runescape.wiki/w/" + tuple.Item1, tuple.Item2, 
+									i == 0 ? CheckBoxType.Mqc :
+								    i == 1 ? CheckBoxType.Comp :
+								    i == 2 ? CheckBoxType.Trim :
+											CheckBoxType.Salty));
 
-            CheckBoxTupleInfoMqc.ForEach(tuple =>
-            {
-                AllCheckboxes.Add(new CheckBoxModel(linkPrefix + tuple.Item1, tuple.Item2, CheckBoxType.Mqc));
-            });
+					AllCheckBoxes.Add(new CheckBox
+					{
+						Content = tuple.Item1,
+						Name = tuple.Item2
+					});
+				});
 
-            CheckBoxTupleInfoComp.ForEach(tuple =>
-            {
-                AllCheckboxes.Add(new CheckBoxModel(linkPrefix + tuple.Item1, tuple.Item2, CheckBoxType.Comp));
-            });
-
-            CheckBoxTupleInfoTrim.ForEach(tuple =>
-            {
-                AllCheckboxes.Add(new CheckBoxModel(linkPrefix + tuple.Item1, tuple.Item2, CheckBoxType.Trim));
-            });
-
-            CheckBoxTupleInfoSalty.ForEach(tuple =>
-            {
-                AllCheckboxes.Add(new CheckBoxModel(linkPrefix + tuple.Item1, tuple.Item2, CheckBoxType.Salty));
-            });
+				i++;
+			});
         }
 	}
 }

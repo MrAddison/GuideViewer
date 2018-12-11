@@ -12,11 +12,9 @@
                 <DataTemplate>
                     <CheckBox Checked="Check" Unchecked="UnCheck">
                         <CheckBox.Content>
-                            <TextBlock>
                             <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding Path = Hyperlink}">
-                                <Label Content="{Binding Path = Text}"/>
+                                <TextBlock Text="{Binding Path = Text}"/>
                             </Hyperlink>
-                            </TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
                 </DataTemplate>                
